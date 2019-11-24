@@ -3,13 +3,6 @@
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 local dir = { [0] = 'N', [90] = 'W', [180] = 'S', [270] = 'E', [360] = 'N'} 
-local Period = "AM"
-local Hours = nil
-local Minutes = nil
-local ped = PlayerPedId()
-local pos = GetEntityCoords(ped)
-local rua, cross = GetStreetNameAtCoord(pos.x, pos.y, pos.z)
-local Zone = GetLabelText(GetNameOfZone(pos.x, pos.y, pos.z))
 
 Citizen.CreateThread(function()
 	while true do
@@ -29,8 +22,8 @@ Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1)
 		local UI = GetMinimapAnchor()
-		local HP = GetEntityHealth(ped) / 200.0
-		local Armor = GetPedArmour(ped) / 100.0
+		local HP = GetEntityHealth(PlayerPedId()) / 200.0
+		local Armor = GetPedArmour(PlayerPedId()) / 100.0
 		local Breath = GetPlayerUnderwaterTimeRemaining(PlayerId()) / 10.0
 
 		if Armor > 1.0 then Armor = 1.0 end
@@ -47,7 +40,7 @@ Citizen.CreateThread(function()
         end
 
 		if IsPedInAnyVehicle(PlayerPedId(), false) then
-			local speed = math.floor(GetEntitySpeed(GetVehiclePedIsIn(ped, false)) * 2.236936)
+			local speed = math.floor(GetEntitySpeed(GetVehiclePedIsIn(PlayerPedId(), false)) * 2.236936)
 			DisplayRadar(true) -- Activates minimap
 			drawRct(UI.Left_x, UI.Bottom_y - 0.248 , UI.Width, 0.073, 0, 0, 0, 55)
 			drawTxt(UI.Left_x + 0.001 , UI.Bottom_y - 0.249, 0.55, Hours .. ":" .. Minutes .. " " .. Period, 255, 255, 255, 255, 8) -- Clock
@@ -81,7 +74,7 @@ function CheckClock()
 	Minutes = GetClockMinutes()
 	if Minutes < 10 then Minutes = "0" .. Minutes end
 	for k,v in pairs(dir)do
-		heading = GetEntityHeading(ped)
+		heading = GetEntityHeading(PlayerPedId())
 		if(math.abs(heading - k) < 45)then
 			heading = v
 			break
@@ -90,7 +83,7 @@ function CheckClock()
 end
 
 function CheckPlayerPosition()
-	pos = GetEntityCoords(ped)
+	pos = GetEntityCoords(PlayerPedId())
 	rua, cross = GetStreetNameAtCoord(pos.x, pos.y, pos.z)
 	Zone = GetLabelText(GetNameOfZone(pos.x, pos.y, pos.z))
 end
