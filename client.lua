@@ -31,15 +31,22 @@ Citizen.CreateThread(function()
 		local UI = GetMinimapAnchor()
 		local HP = GetEntityHealth(ped) / 200.0
 		local Armor = GetPedArmour(ped) / 100.0
+		local Breath = GetPlayerUnderwaterTimeRemaining(PlayerId()) / 10.0
+
 		if Armor > 1.0 then Armor = 1.0 end
 
 		drawRct(UI.Left_x, UI.Bottom_y - 0.017, UI.Width, 0.028, 0, 0, 0, 255) -- Black background
 		drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.015, UI.Width - 0.002 , 0.009, 88, 88, 88, 200) -- HP background
 		drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.015, (UI.Width -0.002) * HP , 0.009, 88, 155, 0, 200) -- HP bar
 		drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.002, UI.Width - 0.002 , 0.009, 88, 88, 88, 200) -- Armor background
-		drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.002, (UI.Width - 0.002) * Armor , 0.009, 51, 171, 249, 200) -- Armor bar
+            
+        if IsPedSwimmingUnderWater(PlayerPedId()) and Breath >= 0.0 then
+            drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.002, (UI.Width - 0.002) * Breath , 0.009, 243, 214, 102, 200)
+        else
+        	drawRct(UI.Left_x + 0.001 , UI.Bottom_y - 0.002, (UI.Width - 0.002) * Armor , 0.009, 51, 171, 249, 200) -- Armor bar
+        end
 
-		if IsPedInAnyVehicle(ped, false) then
+		if IsPedInAnyVehicle(PlayerPedId(), false) then
 			local speed = math.floor(GetEntitySpeed(GetVehiclePedIsIn(ped, false)) * 2.236936)
 			DisplayRadar(true) -- Activates minimap
 			drawRct(UI.Left_x, UI.Bottom_y - 0.248 , UI.Width, 0.073, 0, 0, 0, 55)
@@ -49,7 +56,7 @@ Citizen.CreateThread(function()
 			drawTxt(UI.Left_x + 0.023 , UI.Bottom_y - 0.199 , 0.25, Zone, 255, 255, 255, 255, 8) -- Area
 			
 			drawTxt(UI.Left_x + 0.003 , UI.Bottom_y - 0.045 , 0.4, speed .. " MPH", 255, 255, 255, 255, 4) -- Speed
-			drawRct(UI.Left_x, UI.Bottom_y - 0.045 , UI.Width, 0.073, 0, 0, 0, 55)
+			drawRct(UI.Left_x, UI.Bottom_y - 0.045 , UI.Width, 0.027, 0, 0, 0, 55)
 		else
 			DisplayRadar(false) -- Deactivates minimap
 			drawRct(UI.Left_x, UI.Bottom_y - 0.088 , UI.Width, 0.073, 0, 0, 0, 55) -- Background
