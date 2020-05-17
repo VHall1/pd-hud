@@ -7,7 +7,7 @@ Thanks to [@Dullpear_dev](https://forum.fivem.net/u/Dullpear_dev) for improving 
 
 ## Update
 
-This resource relies on native texts and shapes drawings, which turns out to be resource heavy. Use it at own discretion!
+This resource relies on native text and shape drawings, which, turns out to be resource heavy. Use it at own discretion!
 
 ## Screenshots
 
