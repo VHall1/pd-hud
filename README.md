@@ -5,6 +5,10 @@ There's room for improvements, such as voice range indicator, seatbelt, etc.
 
 Thanks to [@Dullpear_dev](https://forum.fivem.net/u/Dullpear_dev) for improving the script performance :D
 
+## Update
+
+This resource relies on native texts and shapes drawings, which turns out to be resource heavy. Use it at own discretion!
+
 ## Screenshots
 
 [![print1](https://imgur.com/MX17Y4y.png)](https://imgur.com/MX17Y4y.png)
