@@ -1,4 +1,4 @@
-## NP_HUD
+## PD_HUD
 
 This is a simple HUD script that I've built. It's a standalone plugin, so there is no requirements to run it.
 There's room for improvements, such as voice range indicator, seatbelt, etc.
